@@ -47,9 +47,51 @@ export default function AboutPage() {
           </div>
 
           {/* Disclaimer */}
-          <div>
+          <div className="border-b border-border pb-16">
             <Disclaimer />
           </div>
+
+          {/* Project & Team */}
+          <section className="py-16 space-y-8">
+            <div className="space-y-4">
+              <h2 className="text-3xl md:text-4xl font-semibold tracking-tight">Project &amp; Team</h2>
+              <p className="text-lg text-muted-foreground">
+                Developed as part of the Master of Excellence in Machine Learning.
+              </p>
+            </div>
+
+            <div className="rounded-xl border border-border bg-card p-8 space-y-6">
+              <div className="grid sm:grid-cols-2 gap-4">
+                {['Hicham IAMIRI', 'El Amraoui Abdelhaq'].map((author) => (
+                  <div
+                    key={author}
+                    className="flex items-center gap-3 rounded-lg border border-border bg-muted/30 px-4 py-3"
+                  >
+                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold text-primary">
+                      {author
+                        .split(' ')
+                        .map((p) => p[0])
+                        .join('')
+                        .slice(0, 2)
+                        .toUpperCase()}
+                    </span>
+                    <span className="font-medium text-foreground">{author}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="grid sm:grid-cols-2 gap-3 pt-2 border-t border-border text-sm">
+                <p>
+                  <span className="font-semibold text-foreground">Program:</span>{' '}
+                  Master of Excellence — Machine Learning
+                </p>
+                <p>
+                  <span className="font-semibold text-foreground">Institution:</span>{' '}
+                  Faculté des Sciences Ben M&apos;Sik (FSBM)
+                </p>
+              </div>
+            </div>
+          </section>
         </div>
       </main>
       <Footer />
