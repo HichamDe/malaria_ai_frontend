@@ -6,7 +6,7 @@ export function Disclaimer() {
   return (
     <section className="py-16 space-y-8">
       <div className="space-y-4">
-        <h2 className="text-4xl font-bold">Medical Disclaimer</h2>
+        <h2 className="text-3xl md:text-4xl font-semibold tracking-tight">Medical Disclaimer</h2>
         <p className="text-lg text-muted-foreground">
           Important information about the use of this diagnostic support system
         </p>
@@ -17,18 +17,18 @@ export function Disclaimer() {
           <AlertCircle className="h-6 w-6 text-warning flex-shrink-0 mt-1" />
           <div className="space-y-4 text-sm">
             <p className="leading-relaxed">
-              This Malaria Stage Detector is an <span className="font-semibold">AI-powered diagnostic support tool</span> designed to assist medical professionals in the identification of malaria parasite stages in blood smear microscopy images.
+              MalariaScope is a <span className="font-semibold">research and educational tool</span> that assists with identifying malaria infection and parasite stages in single-cell blood-smear images. It is not a certified medical device.
             </p>
 
             <div className="space-y-3 pt-4 border-t border-warning/20">
               <h3 className="font-semibold text-foreground">Important Terms of Use:</h3>
               <ul className="space-y-2 list-disc list-inside">
-                <li>This tool is NOT a replacement for professional medical diagnosis or laboratory confirmation.</li>
-                <li>Results should always be reviewed and verified by qualified medical professionals.</li>
-                <li>The system accuracy is 98% on validation datasets but may vary with image quality and preparation.</li>
+                <li>This is a research and educational tool, NOT a medical diagnostic device.</li>
+                <li>It is not a replacement for professional diagnosis or laboratory confirmation.</li>
+                <li>Results must always be reviewed and verified by qualified medical professionals.</li>
+                <li>Model outputs are probabilities, not guarantees; accuracy varies with image quality and preparation.</li>
                 <li>Clinical decisions should not be made based solely on this tool&apos;s output.</li>
                 <li>Medical practitioners retain full responsibility for patient diagnosis and treatment.</li>
-                <li>All patient data is treated confidentially and processed securely.</li>
               </ul>
             </div>
 
@@ -63,19 +63,19 @@ export function Disclaimer() {
           {[
             {
               q: 'How accurate is the detection system?',
-              a: 'The system achieves 98% accuracy on our validation dataset of 10,000+ labeled images. However, real-world accuracy may vary depending on image quality and preparation methods.',
+              a: 'Performance depends on image quality, staining and preparation. Treat every output as a probability that requires expert review — no fixed accuracy figure is claimed here.',
             },
             {
               q: 'Can this replace laboratory confirmation?',
-              a: 'No, this tool is designed as a support system for medical professionals. Laboratory confirmation and expert review are essential for any clinical decision.',
+              a: 'No. This tool is a support system for medical professionals. Laboratory confirmation and expert review are essential for any clinical decision.',
             },
             {
               q: 'What image formats are supported?',
-              a: 'The system supports JPG, PNG, and WebP formats. Images should be high resolution (at least 1024x1024 pixels) for optimal results.',
+              a: 'JPG, PNG and WebP, up to 20 MB. Inputs should be single-cell thin-smear crops in the NIH cell-images format the models were trained on.',
             },
             {
               q: 'How is my data handled?',
-              a: 'All uploaded images and results are encrypted and processed securely. We comply with HIPAA and other healthcare data protection regulations.',
+              a: 'Uploaded images are sent to the detection backend for inference and are not part of a validated clinical data-handling regime. Do not upload identifiable patient data.',
             },
             {
               q: 'Can the system detect mixed infections?',

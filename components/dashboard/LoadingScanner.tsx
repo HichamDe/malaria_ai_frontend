@@ -29,8 +29,8 @@ export function LoadingScanner() {
       </div>
 
       <div className="text-center space-y-3">
-        <h3 className="text-xl font-semibold">Analyzing Image</h3>
-        <p className="text-muted-foreground">Processing microscopy image using AI model...</p>
+        <h3 className="text-xl font-semibold">Analyzing image</h3>
+        <p className="text-muted-foreground">Running the detection pipeline…</p>
 
         {/* Loading dots */}
         <div className="flex justify-center gap-2 pt-4">

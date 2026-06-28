@@ -10,9 +10,8 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Malaria Stage Detector',
-  description: 'Advanced AI-powered malaria parasite stage detection system. Accurate, fast, and accessible diagnostic support for medical professionals.',
-  generator: 'v0.app',
+  title: 'MalariaScope — Blood-smear screening & parasite staging',
+  description: 'A blood-smear analysis pipeline that screens single-cell images for malaria, localizes the parasite, and classifies its life-cycle stage. Diagnostic support for clinical and research workflows.',
   icons: {
     icon: [
       {

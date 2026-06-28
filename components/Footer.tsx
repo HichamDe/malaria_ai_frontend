@@ -1,3 +1,5 @@
+import { Logo } from '@/components/Logo'
+
 export function Footer() {
   const currentYear = new Date().getFullYear()
 
@@ -7,9 +9,13 @@ export function Footer() {
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           {/* Brand */}
           <div>
-            <h3 className="font-bold mb-4">Malaria Tool</h3>
-            <p className="text-sm text-muted-foreground">
-              Advanced AI-powered malaria detection for medical professionals.
+            <div className="flex items-center gap-2 mb-4">
+              <Logo className="h-5 w-5 text-primary" />
+              <h3 className="font-semibold">MalariaScope</h3>
+            </div>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Blood-smear malaria screening and parasite staging — diagnostic
+              support for clinical and research workflows.
             </p>
           </div>
 
@@ -83,8 +89,8 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-border pt-8">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
-            <p>&copy; {currentYear} Malaria Stage Detector. All rights reserved.</p>
-            <p>Built with AI for medical professionals worldwide.</p>
+            <p>&copy; {currentYear} MalariaScope.</p>
+            <p>Research &amp; educational use — not a medical diagnostic device.</p>
           </div>
         </div>
       </div>

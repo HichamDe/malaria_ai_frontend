@@ -72,10 +72,10 @@ export default function DashboardPage() {
       <main className="flex-1 py-12 px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-6xl">
           {/* Header */}
-          <div className="mb-12 space-y-4">
-            <h1 className="text-4xl md:text-5xl font-bold">Malaria Detection</h1>
+          <div className="mb-12 space-y-3">
+            <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">Detector</h1>
             <p className="text-lg text-muted-foreground">
-              Upload a blood smear microscopy image to detect and identify malaria parasite stages
+              Upload a single-cell blood-smear image to screen for infection, localize the parasite, and classify its life-cycle stage.
             </p>
           </div>
 
@@ -104,16 +104,7 @@ export default function DashboardPage() {
               {isLoading && <LoadingScanner />}
 
               {result && (
-                <>
-                  <AnalysisResultComponent result={result} />
-                  <Button
-                    onClick={handleRemoveFile}
-                    variant="outline"
-                    className="w-full"
-                  >
-                    New Analysis
-                  </Button>
-                </>
+                <AnalysisResultComponent result={result} onReset={handleRemoveFile} />
               )}
             </div>
 
@@ -130,9 +121,11 @@ export default function DashboardPage() {
                   <div className="p-4 rounded-lg border border-border bg-accent/5">
                     <p className="text-sm text-muted-foreground">Recent Detection</p>
                     <p className="text-sm font-medium">
-                      {result
-                        ? result.detectedStage
-                        : scanHistory[0]?.detectedStage || 'No data'}
+                      {(() => {
+                        const r = result ?? scanHistory[0]
+                        if (!r) return 'No data'
+                        return r.detectedStage ?? (r.infected ? 'Infected' : 'Healthy')
+                      })()}
                     </p>
                   </div>
                 </div>
@@ -143,17 +136,25 @@ export default function DashboardPage() {
                 <div className="space-y-4">
                   <h3 className="font-semibold text-lg">Scan History</h3>
                   <div className="space-y-2 max-h-96 overflow-y-auto">
-                    {scanHistory.map((scan, i) => (
+                    {scanHistory.map((scan, i) => {
+                      const conf = scan.detectedStage
+                        ? scan.stageConfidence ?? 0
+                        : scan.infectionConfidence ?? 0
+                      const confPct = Math.round(conf <= 1 ? conf * 100 : conf)
+                      return (
                       <div
                         key={i}
                         className="p-3 rounded-lg border border-border bg-muted/30 text-sm hover:bg-muted/50 cursor-pointer transition-colors"
                       >
-                        <p className="font-medium truncate">{scan.detectedStage}</p>
+                        <p className="font-medium truncate">
+                          {scan.detectedStage ?? (scan.infected ? 'Infected' : 'Healthy')}
+                        </p>
                         <p className="text-xs text-muted-foreground">
-                          {Math.round(scan.confidences[scan.detectedStage])}% confidence
+                          {confPct}% confidence
                         </p>
                       </div>
-                    ))}
+                      )
+                    })}
                   </div>
                 </div>
               )}

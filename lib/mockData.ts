@@ -5,6 +5,14 @@ export const PARASITE_STAGES = {
   GAMETOCYTE: 'Gametocyte',
 } as const
 
+/** Map backend stage labels (lowercase) → display labels used in STAGE_INFO. */
+export const STAGE_LABELS: Record<string, string> = {
+  ring: PARASITE_STAGES.RING,
+  trophozoite: PARASITE_STAGES.TROPHOZOITE,
+  schizont: PARASITE_STAGES.SCHIZONT,
+  gametocyte: PARASITE_STAGES.GAMETOCYTE,
+}
+
 export const STAGE_INFO = {
   [PARASITE_STAGES.RING]: {
     description: 'Early stage of parasite development, ring-shaped appearance',
@@ -28,63 +36,37 @@ export const STAGE_INFO = {
   },
 } as const
 
-export function generateMockPrediction() {
-  // Generate realistic confidence scores
-  const stages = Object.values(PARASITE_STAGES)
-  const confidences: Record<string, number> = {}
-
-  // Create a weighted distribution
-  const random = Math.random()
-  if (random < 0.3) {
-    // Ring stage dominant
-    confidences[PARASITE_STAGES.RING] = 35 + Math.random() * 20
-    confidences[PARASITE_STAGES.TROPHOZOITE] = 20 + Math.random() * 20
-    confidences[PARASITE_STAGES.SCHIZONT] = 15 + Math.random() * 15
-    confidences[PARASITE_STAGES.GAMETOCYTE] = Math.random() * 10
-  } else if (random < 0.6) {
-    // Trophozoite dominant
-    confidences[PARASITE_STAGES.RING] = 15 + Math.random() * 15
-    confidences[PARASITE_STAGES.TROPHOZOITE] = 35 + Math.random() * 20
-    confidences[PARASITE_STAGES.SCHIZONT] = 20 + Math.random() * 20
-    confidences[PARASITE_STAGES.GAMETOCYTE] = 10 + Math.random() * 10
-  } else if (random < 0.85) {
-    // Schizont dominant
-    confidences[PARASITE_STAGES.RING] = 10 + Math.random() * 10
-    confidences[PARASITE_STAGES.TROPHOZOITE] = 20 + Math.random() * 20
-    confidences[PARASITE_STAGES.SCHIZONT] = 40 + Math.random() * 20
-    confidences[PARASITE_STAGES.GAMETOCYTE] = 5 + Math.random() * 10
-  } else {
-    // Gametocyte dominant
-    confidences[PARASITE_STAGES.RING] = Math.random() * 10
-    confidences[PARASITE_STAGES.TROPHOZOITE] = 10 + Math.random() * 15
-    confidences[PARASITE_STAGES.SCHIZONT] = 15 + Math.random() * 20
-    confidences[PARASITE_STAGES.GAMETOCYTE] = 30 + Math.random() * 25
-  }
-
-  // Normalize to 100
-  const total = Object.values(confidences).reduce((a, b) => a + b, 0)
-  Object.keys(confidences).forEach((key) => {
-    confidences[key] = Math.round((confidences[key] / total) * 100 * 10) / 10
-  })
-
-  // Find dominant stage
-  const dominantStage = Object.entries(confidences).sort(([, a], [, b]) => b - a)[0][0]
-
-  return {
-    detectedStage: dominantStage,
-    confidences,
-    severity: STAGE_INFO[dominantStage as keyof typeof STAGE_INFO].severity,
-    timestamp: new Date().toISOString(),
-  }
-}
-
 export interface AnalysisResult {
-  detectedStage: string
-  confidences: Record<string, number>
+  /** Phase 1 — infection status */
+  infected: boolean
+  infectionLabel: string
+  infectionConfidence: number // 0..1
+
+  /** Phase 4 — life-cycle stage (null when healthy / not staged) */
+  detectedStage: string | null
+  stageConfidence: number | null // 0..1
+
+  /** Phase 2 — parasite localization (null when healthy / not segmented) */
+  detection: {
+    found: boolean
+    backend: string
+    box: { x: number; y: number; width: number; height: number } | null
+    areaPx: number
+  } | null
+
   severity: string
   timestamp: string
+
+  imageSize?: [number, number]
+  /** Annotated overlay PNG (box + mask + labels), as a data URL. */
+  overlayUrl?: string
+  /** Binary parasite mask PNG, as a data URL. */
+  maskUrl?: string
+  /** Original uploaded image, as a data URL. */
   imageUrl?: string
   fileName?: string
+  fileSize?: number
+  timingsMs?: Record<string, number>
 }
 
 export function getSeverityColor(severity: string) {

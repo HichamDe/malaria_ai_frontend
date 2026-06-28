@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { Menu, X, Moon, Sun } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { Logo } from '@/components/Logo'
 
 export function Navigation() {
   const pathname = usePathname()
@@ -36,11 +37,18 @@ export function Navigation() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 font-bold text-lg">
-            <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-              <span className="text-sm font-bold text-primary-foreground">M</span>
-            </div>
-            <span className="hidden sm:inline text-foreground">Malaria Tool</span>
+          <Link href="/" className="flex items-center gap-2.5">
+            <span className="flex h-9 w-9 items-center justify-center rounded-md border border-border bg-card">
+              <Logo className="h-5 w-5 text-primary" />
+            </span>
+            <span className="hidden sm:flex flex-col leading-none">
+              <span className="text-base font-semibold tracking-tight text-foreground">
+                MalariaScope
+              </span>
+              <span className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+                Diagnostic Support
+              </span>
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -71,6 +79,10 @@ export function Navigation() {
             >
               {mounted && (isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />)}
             </Button>
+
+            <Link href="/dashboard" className="hidden md:inline-flex">
+              <Button size="sm">Open Detector</Button>
+            </Link>
 
             {/* Mobile Menu Button */}
             <Button

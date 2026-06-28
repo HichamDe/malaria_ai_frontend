@@ -12,9 +12,10 @@ export function ModelPipeline() {
   return (
     <section className="py-16 space-y-12">
       <div className="space-y-4">
-        <h2 className="text-4xl font-bold">Parasite Stages</h2>
+        <h2 className="text-3xl md:text-4xl font-semibold tracking-tight">Parasite Stages</h2>
         <p className="text-lg text-muted-foreground">
-          The AI model can identify all major stages of malaria parasites in the Plasmodium lifecycle
+          The staging model classifies the four major stages of the Plasmodium
+          life cycle in infected red blood cells.
         </p>
       </div>
 
@@ -41,21 +42,24 @@ export function ModelPipeline() {
       {/* Technical Details */}
       <div className="p-8 rounded-xl border border-border bg-muted/30 space-y-4">
         <h3 className="font-semibold text-lg">Technical Architecture</h3>
-        <div className="space-y-3 text-sm text-muted-foreground">
+        <div className="grid sm:grid-cols-2 gap-3 text-sm text-muted-foreground">
           <p>
-            <span className="font-semibold text-foreground">Model Type:</span> Convolutional Neural Network (CNN)
+            <span className="font-semibold text-foreground">Infection classifier:</span> ResNet50
           </p>
           <p>
-            <span className="font-semibold text-foreground">Training Data:</span> 50,000+ labeled blood smear images
+            <span className="font-semibold text-foreground">Segmentation:</span> YOLOv8 (optional) or OpenCV stain mask
           </p>
           <p>
-            <span className="font-semibold text-foreground">Accuracy:</span> 98% on validation dataset
+            <span className="font-semibold text-foreground">Stage classifier:</span> EfficientNet-B0
           </p>
           <p>
-            <span className="font-semibold text-foreground">Processing Time:</span> &lt;1 second per image
+            <span className="font-semibold text-foreground">Framework:</span> PyTorch / TorchVision
           </p>
           <p>
-            <span className="font-semibold text-foreground">Model Framework:</span> TensorFlow/Keras with optimization
+            <span className="font-semibold text-foreground">Serving:</span> FastAPI, CPU inference
+          </p>
+          <p>
+            <span className="font-semibold text-foreground">Input:</span> single-cell thin-smear crop
           </p>
         </div>
       </div>

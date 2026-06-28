@@ -95,7 +95,7 @@ export function UploadZone({ onFileSelect, isLoading = false }: UploadZoneProps)
         </div>
 
         <p className="text-xs text-muted-foreground">
-          Supported formats: JPG, PNG, WebP (Max 10MB)
+          Single-cell crop · JPG, PNG or WebP · up to 20 MB
         </p>
       </div>
     </div>

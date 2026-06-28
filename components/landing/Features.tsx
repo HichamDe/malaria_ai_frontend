@@ -1,92 +1,87 @@
-'use client'
+import { Microscope, ScanSearch, Layers, FileImage } from 'lucide-react'
 
-import { CheckCircle, Zap, Shield, BarChart3 } from 'lucide-react'
-
-interface Feature {
+interface Phase {
+  step: string
   icon: React.ReactNode
   title: string
   description: string
+  model: string
 }
 
-const features: Feature[] = [
+const phases: Phase[] = [
   {
-    icon: <CheckCircle className="h-8 w-8" />,
-    title: 'High Accuracy',
-    description: 'Detects malaria parasites across all lifecycle stages with 98% accuracy using advanced neural networks.',
+    step: '01',
+    icon: <Microscope className="h-5 w-5" />,
+    title: 'Infection screening',
+    description:
+      'Each cell crop is first classified as healthy or infected. Healthy cells short-circuit the pipeline.',
+    model: 'ResNet50',
   },
   {
-    icon: <Zap className="h-8 w-8" />,
-    title: 'Lightning Fast',
-    description: 'Get results in under 1 second. Real-time analysis powered by optimized AI models.',
+    step: '02',
+    icon: <ScanSearch className="h-5 w-5" />,
+    title: 'Parasite localization',
+    description:
+      'Infected cells are segmented to produce a bounding box and a binary parasite mask.',
+    model: 'YOLOv8 / OpenCV stain',
   },
   {
-    icon: <Shield className="h-8 w-8" />,
-    title: 'Secure & Private',
-    description: 'Your medical data is encrypted and processed with HIPAA-compliant infrastructure.',
+    step: '03',
+    icon: <Layers className="h-5 w-5" />,
+    title: 'Life-cycle staging',
+    description:
+      'The cropped parasite is classified into ring, trophozoite, schizont or gametocyte.',
+    model: 'EfficientNet-B0',
   },
   {
-    icon: <BarChart3 className="h-8 w-8" />,
-    title: 'Detailed Analytics',
-    description: 'Comprehensive reports with confidence scores, stage identification, and medical recommendations.',
+    step: '04',
+    icon: <FileImage className="h-5 w-5" />,
+    title: 'Annotated report',
+    description:
+      'Results are returned as JSON with confidences, plus an overlay PNG drawing the box, mask and labels.',
+    model: 'Overlay renderer',
   },
 ]
 
 export function Features() {
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 relative">
+    <section className="py-20 px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
-        {/* Section Header */}
-        <div className="text-center mb-16 space-y-4">
-          <h2 className="text-4xl md:text-5xl font-bold">
-            Powerful Features for <span className="gradient-text">Medical Professionals</span>
+        <div className="max-w-2xl mb-14">
+          <p className="text-sm font-medium text-primary mb-3">The pipeline</p>
+          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight">
+            Four phases, from cell image to staged result
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Built with cutting-edge AI to provide accurate, fast, and reliable malaria detection.
+          <p className="mt-4 text-muted-foreground leading-relaxed">
+            Inputs are single-cell thin-smear crops in the NIH cell-images format
+            the models were trained on. Each phase is a dedicated model with a
+            documented role.
           </p>
         </div>
 
-        {/* Features Grid */}
-        <div className="grid md:grid-cols-2 gap-8">
-          {features.map((feature, index) => (
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px rounded-xl border border-border bg-border overflow-hidden">
+          {phases.map((phase) => (
             <div
-              key={index}
-              className="group relative p-8 rounded-xl border border-border bg-card hover:border-primary/50 transition-all duration-300"
+              key={phase.step}
+              className="bg-card p-6 flex flex-col gap-4 transition-colors hover:bg-muted/40"
             >
-              {/* Gradient Background on Hover */}
-              <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-primary/10 to-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-
-              {/* Content */}
-              <div className="relative space-y-4">
-                <div className="inline-flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                  {feature.icon}
-                </div>
-                <h3 className="text-xl font-semibold">{feature.title}</h3>
-                <p className="text-muted-foreground">{feature.description}</p>
+              <div className="flex items-center justify-between">
+                <span className="flex h-9 w-9 items-center justify-center rounded-md bg-primary/10 text-primary">
+                  {phase.icon}
+                </span>
+                <span className="text-xs font-mono text-muted-foreground">{phase.step}</span>
+              </div>
+              <div className="space-y-1.5">
+                <h3 className="font-semibold">{phase.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {phase.description}
+                </p>
+              </div>
+              <div className="mt-auto pt-3 border-t border-border">
+                <span className="text-xs font-medium text-foreground">{phase.model}</span>
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Bottom Stats */}
-        <div className="mt-20 p-8 rounded-xl border border-border bg-muted/30 text-center">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div>
-              <div className="text-3xl font-bold text-primary mb-2">50K+</div>
-              <p className="text-sm text-muted-foreground">Images Analyzed</p>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-primary mb-2">200+</div>
-              <p className="text-sm text-muted-foreground">Hospitals Using</p>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-primary mb-2">99.9%</div>
-              <p className="text-sm text-muted-foreground">Uptime</p>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-primary mb-2">24/7</div>
-              <p className="text-sm text-muted-foreground">Support</p>
-            </div>
-          </div>
         </div>
       </div>
     </section>

@@ -5,8 +5,8 @@ import { ModelPipeline } from '@/components/about/ModelPipeline'
 import { Disclaimer } from '@/components/about/Disclaimer'
 
 export const metadata = {
-  title: 'About - Malaria Stage Detector',
-  description: 'Learn about our AI-powered malaria detection system, how it works, and important medical information.',
+  title: 'About — MalariaScope',
+  description: 'How the MalariaScope blood-smear analysis pipeline works, the models behind it, and important medical information.',
 }
 
 export default function AboutPage() {
@@ -17,17 +17,22 @@ export default function AboutPage() {
         <div className="mx-auto max-w-4xl">
           {/* Header */}
           <div className="mb-16 space-y-4">
-            <h1 className="text-5xl font-bold">About Malaria Detection</h1>
+            <h1 className="text-4xl md:text-5xl font-semibold tracking-tight">About MalariaScope</h1>
             <p className="text-xl text-muted-foreground">
-              Understanding our AI-powered diagnostic support system designed for medical professionals
+              A blood-smear analysis pipeline for malaria screening and parasite staging.
             </p>
           </div>
 
           {/* Introduction */}
           <div className="mb-16 p-8 rounded-xl border border-border bg-muted/30 space-y-4">
-            <h2 className="text-2xl font-bold">Our Mission</h2>
+            <h2 className="text-2xl font-semibold tracking-tight">Purpose</h2>
             <p className="text-muted-foreground leading-relaxed">
-              Malaria remains a significant public health challenge affecting millions worldwide. Our AI system is designed to support medical professionals in quickly identifying malaria parasite stages from blood smear microscopy images. By leveraging advanced neural networks trained on thousands of labeled images, we provide fast, accurate, and accessible diagnostic support that helps medical professionals make informed clinical decisions.
+              Malaria diagnosis from blood-smear microscopy is labor-intensive and
+              depends on trained microscopists. MalariaScope chains four dedicated
+              models — infection screening, parasite localization, and life-cycle
+              staging — to produce a structured, reviewable result from a single-cell
+              image. It is intended to support, not replace, expert review and
+              laboratory confirmation.
             </p>
           </div>
 
