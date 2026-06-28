@@ -13,21 +13,9 @@ export const metadata: Metadata = {
   title: 'MalariaScope — Blood-smear screening & parasite staging',
   description: 'A blood-smear analysis pipeline that screens single-cell images for malaria, localizes the parasite, and classifies its life-cycle stage. Diagnostic support for clinical and research workflows.',
   icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
+    icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
+    shortcut: '/favicon.svg',
+    apple: '/favicon.svg',
   },
 }
 
